@@ -1,0 +1,125 @@
+/* =========================================================
+   SQL JOINS PROJECT
+   Demonstration of INNER, LEFT, RIGHT, and FULL JOINS
+   ========================================================= */
+
+/* -------------------------------
+   1. CREATE TABLES
+   ------------------------------- */
+
+CREATE TABLE Employees (
+    emp_id INT,
+    emp_name VARCHAR(50),
+    dept_id INT
+);
+
+CREATE TABLE Departments (
+    dept_id INT,
+    dept_name VARCHAR(50)
+);
+
+/* -------------------------------
+   2. INSERT SAMPLE DATA
+   ------------------------------- */
+
+INSERT INTO Employees VALUES
+(1, 'Ali', 10),
+(2, 'Sara', 20),
+(3, 'John', 30),
+(4, 'Ayesha', NULL);
+
+INSERT INTO Departments VALUES
+(10, 'HR'),
+(20, 'IT'),
+(40, 'Finance');
+
+/* =========================================================
+   3. INNER JOIN
+   Returns only matching records from both tables
+   ========================================================= */
+
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM Employees e
+INNER JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+/*
+OUTPUT:
++--------+----------+-----------+
+| emp_id | emp_name | dept_name |
++--------+----------+-----------+
+| 1      | Ali      | HR        |
+| 2      | Sara     | IT        |
++--------+----------+-----------+
+*/
+
+/* =========================================================
+   4. LEFT JOIN
+   Returns all records from Employees and matching from Departments
+   ========================================================= */
+
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM Employees e
+LEFT JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+/*
+OUTPUT:
++--------+----------+-----------+
+| emp_id | emp_name | dept_name |
++--------+----------+-----------+
+| 1      | Ali      | HR        |
+| 2      | Sara     | IT        |
+| 3      | John     | NULL      |
+| 4      | Ayesha  | NULL      |
++--------+----------+-----------+
+*/
+
+/* =========================================================
+   5. RIGHT JOIN
+   Returns all records from Departments and matching from Employees
+   ========================================================= */
+
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+/*
+OUTPUT:
++--------+----------+-----------+
+| emp_id | emp_name | dept_name |
++--------+----------+-----------+
+| 1      | Ali      | HR        |
+| 2      | Sara     | IT        |
+| NULL   | NULL     | Finance   |
++--------+----------+-----------+
+*/
+
+/* =========================================================
+   6. FULL JOIN
+   Returns all records from both tables
+   (For PostgreSQL / SQL Server / Oracle)
+   ========================================================= */
+
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM Employees e
+FULL JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+/*
+OUTPUT:
++--------+----------+-----------+
+| emp_id | emp_name | dept_name |
++--------+----------+-----------+
+| 1      | Ali      | HR        |
+| 2      | Sara     | IT        |
+| 3      | John     | NULL      |
+| 4      | Ayesha  | NULL      |
+| NULL   | NULL     | Finance   |
++--------+----------+-----------+
+*/
+
+/* =========================================================
+   END OF FILE
+   ========================================================= */
